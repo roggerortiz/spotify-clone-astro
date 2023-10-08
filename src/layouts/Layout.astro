@@ -1,51 +1,137 @@
 ---
+// import AsideMenu from '@/components/AsideMenu.astro'
+import AsideMenu from '@/components/AsideMenu.astro'
+import { Player } from '@/components/Player'
+import { ViewTransitions } from 'astro:transitions'
+
 interface Props {
-	title: string;
+  title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta
+      name='description'
+      content='Astro description'
+    />
+    <meta
+      name='viewport'
+      content='width=device-width'
+    />
+    <link
+      rel='icon'
+      type='image/svg+xml'
+      href='/favicon.svg'
+    />
+    <meta
+      name='generator'
+      content={Astro.generator}
+    />
+    <title>{title}</title>
+    <ViewTransitions fallback='none' />
+  </head>
+  <body class='flex flex-col h-full min-h-[600px] w-full min-w-[800px] leading-normal'>
+    <div
+      id='app'
+      class='relative h-full min-h-full w-full gap-2 p-2 z-0 bg-black'
+    >
+      <aside class='[grid-area:aside] flex flex-col min-h-0 bg-black relative w-[412px] z-[4]'>
+        <AsideMenu />
+      </aside>
+
+      <main
+        class='[grid-area:main/main/main/right] flex flex-col rounded-lg bg-zinc-900 overflow-hidden relative min-h-0 min-w-full'
+      >
+        <div class='flex-1 min-h-0 relative overflow-hidden'>
+          <slot />
+        </div>
+      </main>
+
+      <div class='[grid-area:player] w-full z-[6]'>
+        <footer class='flex flex-col h-[72px] min-w-[620px] justify-center'>
+          <Player
+            client:load
+            transition:name='media-player'
+            transition:persist
+          />
+        </footer>
+      </div>
+    </div>
+
+    <style>
+      #app {
+        display: grid;
+        grid-template-areas: 'aside main right' 'player player player';
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 1fr auto;
+      }
+    </style>
+
+    <style is:global>
+      html {
+        background: #121212;
+        height: 100%;
+      }
+
+      body {
+        font-family: 'CircularStd', system-ui, sans-serif;
+        color: #b3b3b3;
+        text-transform: none;
+      }
+
+      @font-face {
+        font-family: 'CircularStd';
+        src: url('/fonts/CircularStd-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'CircularStd';
+        src: url('/fonts/CircularStd-Book.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'CircularStd';
+        src: url('/fonts/CircularStd-Light.woff2') format('woff2');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'CircularStd';
+        src: url('/fonts/CircularStd-Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'CircularStd';
+        src: url('/fonts/CircularStd-Black.woff2') format('woff2');
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      .scrollbars-invisible::-webkit-scrollbar,
+      .scrollbars-invisible::-webkit-scrollbar-corner {
+        background: transparent !important;
+        display: none !important;
+        height: 0 !important;
+        visibility: hidden !important;
+        width: 0 !important;
+      }
+    </style>
+  </body></html
+>

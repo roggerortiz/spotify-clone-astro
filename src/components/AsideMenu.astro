@@ -1,0 +1,39 @@
+---
+import HomeIcon from '@/icons/Home.astro'
+import SearchIcon from '@/icons/Search.astro'
+import { playlists } from '@/lib/data'
+import SideHeaderButton from './SideHeaderButton.astro'
+import SideMenuCard from './SideMenuCard.astro'
+import SideMenuItem from './SideMenuItem.astro'
+---
+
+<nav class='flex flex-col h-full min-h-0 gap-2'>
+  <div class='bg-zinc-900 rounded-lg cursor-default'>
+    <ul class='px-3 py-2'>
+      <SideMenuItem href='/'>
+        <HomeIcon />
+         Home
+      </SideMenuItem>
+      <SideMenuItem href='/#'>
+        <SearchIcon />
+         Search
+      </SideMenuItem>
+    </ul>
+  </div>
+
+  <div class='flex flex-1 flex-col min-h-0 w-full bg-zinc-900 rounded-lg cursor-default'>
+    <div class='flex flex-1 flex-col min-h-0 pt-0 w-full'>
+      <SideHeaderButton />
+
+      <div class='relative overflow-y-hidden h-full'>
+        <div class='h-full w-full p-0 overflow-y-auto scrollbars-invisible'>
+          <div class='flex flex-col gap-2 min-h-full pt-0 pb-2 px-2'>
+            <ul>
+              {playlists.map((playlist) => <SideMenuCard playlist={playlist} />)}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
