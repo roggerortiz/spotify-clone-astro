@@ -5,7 +5,7 @@ import { allPlaylists, songs } from '@/lib/data'
 const { id } = Astro.params
 
 const playlist = allPlaylists.find((playlist) => playlist.id === id)
-const playListSongs = songs.filter((song) => song.albumId === id)
+const playListSongs = songs.filter((song) => song.albumId === playlist?.albumId)
 ---
 
 <Layout title='Spotify Clone.'>

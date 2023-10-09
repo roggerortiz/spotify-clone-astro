@@ -1,69 +1,59 @@
-import { useRef, useState } from 'react'
-
-const Pause = () => {
-  return (
-    <svg
-      role='img'
-      height='16'
-      width='16'
-      aria-hidden='true'
-      viewBox='0 0 16 16'
-    >
-      <path d='M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z'></path>
-    </svg>
-  )
-}
-
-const Play = () => {
-  return (
-    <svg
-      role='img'
-      height='16'
-      width='16'
-      aria-hidden='true'
-      viewBox='0 0 16 16'
-    >
-      <path d='M3 1.713a.7.7 0 0 1 1.05-.607l10.89 6.288a.7.7 0 0 1 0 1.212L4.05 14.894A.7.7 0 0 1 3 14.288V1.713z'></path>
-    </svg>
-  )
-}
+import { usePlayerStore } from '@/store/playerStore'
+import { useEffect, useRef } from 'react'
+import { CurrentSong } from './CurrentSong'
+import { Pause } from './Pause'
+import { Play } from './Play'
+import { VolumeControl } from './VolumeControl'
 
 export function Player() {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentSong, setCurrentSong] = useState(null)
+  const { volume, isPlaying, currentMusic, setIsPlaying } = usePlayerStore((state) => state)
+  const { playlist, songs, song } = currentMusic ?? {}
   const audioRef = useRef()
 
-  const handleClick = () => {
-    if (isPlaying) {
-      audioRef.current.pause()
-    } else {
-      audioRef.current.play()
-    }
-
+  const handlePlayingChange = () => {
     setIsPlaying(!isPlaying)
+  }
+
+  useEffect(() => {
+    if (audioRef.current) {
+      isPlaying ? audioRef.current.play() : audioRef.current.pause()
+      console.log({ volume })
+      audioRef.current.volume = volume
+    }
+  }, [isPlaying, playlist])
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume
+    }
+  }, [volume])
+
+  if (!playlist || !song) {
+    return <></>
   }
 
   return (
     <div className='flex flex-row justify-between w-full px-4 z-50'>
-      <div></div>
+      <CurrentSong />
 
       <div className='grid place-content-center gap-4 flex-1'>
         <div className='flex justify-center'>
           <button
             className='bg-white rounded-full p-2'
-            onClick={handleClick}
+            onClick={handlePlayingChange}
           >
             {isPlaying ? <Pause /> : <Play />}
           </button>
         </div>
       </div>
 
-      <div className='grid place-content-center'></div>
+      <div className='grid place-content-center'>
+        <VolumeControl />
+      </div>
 
       <audio
         ref={audioRef}
-        src='/music/1/01.mp3'
-        volumen={0.1}
+        src={`/music/${playlist.id}/${song.id.toString().padStart(2, '0')}.mp3`}
       />
     </div>
   )

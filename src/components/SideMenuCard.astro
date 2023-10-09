@@ -11,21 +11,22 @@ const { id, cover, title, artists, color } = playlist
 const artistsString = artists.join(', ')
 ---
 
-<li class='p-2'>
+<li class='p-2 rounded-lg hover:bg-zinc-800'>
   <a
     href={`/playlist/${id}`}
-    class='playlist-item flex relative overflow-hidden items-center gap-4 hover:bg-zinc-500'
+    class='flex items-center gap-4 relative overflow-hidden'
   >
     <picture class='h-12 w-12 flex-none'>
       <img
         src={cover}
         alt={`Cover of ${title} by ${artistsString}`}
+        class='rounded-md shadow-lg'
       />
     </picture>
 
     <div class='flex flex-auto flex-col truncate'>
-      <h4 class='text-white text-sm'>{title}</h4>
-      <span class='text-xs text-gray-400'>{artistsString}</span>
+      <h4 class='text-white text-base'>{title}</h4>
+      <span class='text-sm text-gray-400'>{artistsString}</span>
     </div>
   </a>
 </li>

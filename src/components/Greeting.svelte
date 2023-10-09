@@ -13,4 +13,4 @@
   }
 </script>
 
-<h1 class="text-2xl text-white font-bold">{greeting}</h1>
+<h1 class="text-2xl text-white font-bold mb-4">{greeting}</h1>

@@ -35,39 +35,37 @@ const { title } = Astro.props
     <title>{title}</title>
     <ViewTransitions fallback='none' />
   </head>
-  <body class='flex flex-col h-full min-h-[600px] w-full min-w-[800px] leading-normal'>
+  <body
+    class='flex flex-col h-full min-h-[600px] w-full min-w-[800px] leading-normal scrollbars-invisible'
+  >
     <div
       id='app'
       class='relative h-full min-h-full w-full gap-2 p-2 z-0 bg-black'
     >
-      <aside class='[grid-area:aside] flex flex-col min-h-0 bg-black relative w-[412px] z-[4]'>
+      <aside class='[grid-area:aside] flex flex-col min-h-0 relative z-[4]'>
         <AsideMenu />
       </aside>
 
       <main
-        class='[grid-area:main/main/main/right] flex flex-col rounded-lg bg-zinc-900 overflow-hidden relative min-h-0 min-w-full'
+        class='[grid-area:main] flex flex-col rounded-lg bg-zinc-900 relative min-h-0 min-w-full overflow-hidden'
       >
-        <div class='flex-1 min-h-0 relative overflow-hidden'>
-          <slot />
-        </div>
+        <slot />
       </main>
 
-      <div class='[grid-area:player] w-full z-[6]'>
-        <footer class='flex flex-col h-[72px] min-w-[620px] justify-center'>
-          <Player
-            client:load
-            transition:name='media-player'
-            transition:persist
-          />
-        </footer>
-      </div>
+      <footer class='[grid-area:player] flex flex-col h-auto w-full min-w-[620px] z-[6]'>
+        <Player
+          client:load
+          transition:name='media-player'
+          transition:persist
+        />
+      </footer>
     </div>
 
     <style>
       #app {
         display: grid;
-        grid-template-areas: 'aside main right' 'player player player';
-        grid-template-columns: auto 1fr;
+        grid-template-areas: 'aside main main' 'player player player';
+        grid-template-columns: 412px 1fr;
         grid-template-rows: 1fr auto;
       }
     </style>

@@ -12,10 +12,10 @@ import { playlists } from '@/lib/data'
   >
     <!-- <PageHeader /> -->
 
-    <div class='relative z-10 p-6 h-full overflow-y-auto scrollbars-invisible'>
+    <div class='relative z-10 pt-2 px-6 h-full overflow-y-auto scrollbars-invisible'>
       <Greeting />
 
-      <div class='flex flex-wrap mt-6 gap-4'>
+      <div class='grid grid-cols-4 gap-6'>
         {playlists.map((playlist) => <PlayListItemCard playlist={playlist} />)}
       </div>
     </div>
