@@ -1,60 +1,33 @@
 import { usePlayerStore } from '@/store/playerStore'
-import { useEffect, useRef } from 'react'
-import { CurrentSong } from './CurrentSong'
-import { Pause } from './Pause'
-import { Play } from './Play'
-import { VolumeControl } from './VolumeControl'
+import { useEffect } from 'react'
+import { PlayerControls } from './PlayerControls'
+import { SongControls } from './SongControls'
+import { SongInfo } from './SongInfo'
 
 export function Player() {
-  const { volume, isPlaying, currentMusic, setIsPlaying } = usePlayerStore((state) => state)
-  const { playlist, songs, song } = currentMusic ?? {}
-  const audioRef = useRef()
+  const { setCurrentMusic } = usePlayerStore((state) => state)
 
-  const handlePlayingChange = () => {
-    setIsPlaying(!isPlaying)
+  const fetchPlaylist = () => {
+    fetch('/api/get-info-playlist.json?id=1')
+      .then((res) => res.json())
+      .then((data) => {
+        const { songs, playlist } = data
+        const song = songs.length ? songs[0] : null
+        setCurrentMusic({ songs, playlist, song })
+      })
   }
 
   useEffect(() => {
-    if (audioRef.current) {
-      isPlaying ? audioRef.current.play() : audioRef.current.pause()
-      console.log({ volume })
-      audioRef.current.volume = volume
-    }
-  }, [isPlaying, playlist])
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume
-    }
-  }, [volume])
-
-  if (!playlist || !song) {
-    return <></>
-  }
+    setTimeout(() => fetchPlaylist(), 1000)
+  }, [])
 
   return (
-    <div className='flex flex-row justify-between w-full px-4 z-50'>
-      <CurrentSong />
+    <div className='flex flex-row justify-between items-center h-[72px] w-full px-4 z-50'>
+      <SongInfo />
 
-      <div className='grid place-content-center gap-4 flex-1'>
-        <div className='flex justify-center'>
-          <button
-            className='bg-white rounded-full p-2'
-            onClick={handlePlayingChange}
-          >
-            {isPlaying ? <Pause /> : <Play />}
-          </button>
-        </div>
-      </div>
+      <PlayerControls />
 
-      <div className='grid place-content-center'>
-        <VolumeControl />
-      </div>
-
-      <audio
-        ref={audioRef}
-        src={`/music/${playlist.id}/${song.id.toString().padStart(2, '0')}.mp3`}
-      />
+      <SongControls />
     </div>
   )
 }

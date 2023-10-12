@@ -4,7 +4,7 @@ import { Slider } from './Slider'
 import { Volume } from './Volume'
 import { VolumeSilence } from './VolumeSilence'
 
-export function VolumeControl() {
+export function SongControls() {
   const { volume, setVolume } = usePlayerStore((state) => state)
   const previousVolumeRef = useRef(volume)
   const isVolumeSilenced = volume === 0
@@ -24,7 +24,7 @@ export function VolumeControl() {
   }
 
   return (
-    <div className='flex justify-center gap-x-2'>
+    <div className='flex justify-end gap-x-2 w-1/3 min-w-[120px]'>
       <button
         className='opacity-70 hover:opacity-100 transition'
         onClick={handleClickVolumen}

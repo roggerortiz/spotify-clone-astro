@@ -1,6 +1,6 @@
 ---
 import Greeting from '@/components/Greeting.svelte'
-import PlayListItemCard from '@/components/PlayListItemCard.astro'
+import PlaylistItemCard from '@/components/PlaylistItemCard.astro'
 import Layout from '@/layouts/Layout.astro'
 import { playlists } from '@/lib/data'
 ---
@@ -16,7 +16,7 @@ import { playlists } from '@/lib/data'
       <Greeting />
 
       <div class='grid grid-cols-4 gap-6'>
-        {playlists.map((playlist) => <PlayListItemCard playlist={playlist} />)}
+        {playlists.map((playlist) => <PlaylistItemCard playlist={playlist} />)}
       </div>
     </div>
 

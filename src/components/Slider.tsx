@@ -12,7 +12,7 @@ export const Slider = React.forwardRef<
     className={cn('relative flex touch-none select-none items-center group', className)}
     {...props}
   >
-    <SliderPrimitive.Track className='relative h-1 w-full grow overflow-hidden rounded-full bg-gray-800'>
+    <SliderPrimitive.Track className='relative h-1 w-full grow overflow-hidden rounded-full bg-gray-50/30'>
       <SliderPrimitive.Range className='absolute h-full bg-white group-hover:bg-green-400' />
     </SliderPrimitive.Track>
 
