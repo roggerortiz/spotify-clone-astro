@@ -1,4 +1,6 @@
 ---
+import { CardPlayButton } from '@/components/CardPlayButton.jsx'
+import SongsTable from '@/components/SongsTable.astro'
 import Layout from '@/layouts/Layout.astro'
 import { allPlaylists, songs } from '@/lib/data'
 
@@ -11,7 +13,7 @@ const playListSongs = songs.filter((song) => song.albumId === playlist?.albumId)
 <Layout title='Spotify Clone.'>
   <div
     id='playlist-container'
-    class='relative flex flex-col h-full bg-zinc-900 overflow-x-hidden'
+    class='relative flex flex-col h-full bg-zinc-900 overflow-x-hidden scrollbars-invisible'
     transition:name=`playlist ${id} box`
   >
     <!-- <PageHeader /> -->
@@ -48,9 +50,21 @@ const playListSongs = songs.filter((song) => song.albumId === playlist?.albumId)
       </div>
     </header>
 
-    <div class='relative z-10 px-6 pt-10'> </div>
+    <div class='p-6'>
+      <CardPlayButton
+        id={id}
+        size='large'
+        client:load
+      />
+    </div>
+
+    <div class='relative z-10 px-6'> </div>
 
     <div class='absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-[1]'></div>
+
+    <section class='px-6'>
+      <SongsTable songs={playListSongs} />
+    </section>
   </div>
 </Layout>
 
