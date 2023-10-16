@@ -7,7 +7,7 @@ export function SongInfo() {
   const artistsString = artists?.join(', ')
 
   return (
-    <div className='flex items-center gap-4 relative overflow-hidden w-1/3'>
+    <div className='hidden sm:flex items-center gap-4 relative overflow-hidden w-1/3'>
       {Boolean(playlist && song) && (
         <>
           <picture className='h-14 w-14 flex-none'>

@@ -6,16 +6,15 @@ import { playlists } from '@/lib/data'
 ---
 
 <Layout title='Spotify Clone.'>
-  <div
-    id='playlist-container'
-    class='relative transition-all duration-1000 bg-green-600 overflow-hidden'
-  >
+  <div class='relative transition-all duration-1000 bg-green-600 overflow-hidden'>
     <!-- <PageHeader /> -->
 
-    <div class='relative z-10 pt-2 px-6 h-full overflow-y-auto scrollbars-invisible'>
+    <div class='relative z-10 p-6 h-full overflow-y-auto scrollbars-invisible'>
       <Greeting />
 
-      <div class='grid grid-cols-4 gap-6'>
+      <div
+        class='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6'
+      >
         {playlists.map((playlist) => <PlaylistItemCard playlist={playlist} />)}
       </div>
     </div>
@@ -25,8 +24,4 @@ import { playlists } from '@/lib/data'
   </div>
 </Layout>
 
-<style>
-  #playlist-container {
-    height: calc(100% - 8px);
-  }
-</style>
+<style></style>

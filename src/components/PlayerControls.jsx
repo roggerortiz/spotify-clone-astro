@@ -30,7 +30,7 @@ export function PlayerControls() {
   }, [volume])
 
   return (
-    <div className='w-1/2 max-w-[722px]'>
+    <div className='w-full sm:w-1/2'>
       <div className='flex flex-col justify-center items-center w-full'>
         <PlayerControlsButtons />
 

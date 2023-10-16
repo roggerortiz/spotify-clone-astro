@@ -22,7 +22,7 @@ export function Player() {
   }, [])
 
   return (
-    <div className='flex flex-row justify-between items-center h-[72px] w-full px-4 z-50'>
+    <div className='flex flex-row justify-center sm:justify-between items-center h-[72px] w-full px-4 z-50'>
       <SongInfo />
 
       <PlayerControls />

@@ -24,7 +24,7 @@ export function SongControls() {
   }
 
   return (
-    <div className='flex justify-end gap-x-2 w-1/3 min-w-[120px]'>
+    <div className='hidden sm:flex justify-end gap-x-2 w-1/3 min-w-[120px]'>
       <button
         className='opacity-70 hover:opacity-100 transition'
         onClick={handleClickVolumen}
